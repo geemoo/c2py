@@ -1,8 +1,5 @@
 cimport foo
 
 class Foo:
-	def __init__(self):
-		self.something = 5
-	
-	def show_int(a):
+	def show_int(self, a):
 		foo.show_int(a)

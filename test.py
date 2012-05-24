@@ -2,5 +2,5 @@
 
 import foo
 
-bar = Foo()
+bar = foo.Foo()
 bar.show_int(5)
