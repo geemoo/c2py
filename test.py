@@ -5,6 +5,7 @@ import foo
 bar = foo.Foo()
 bar.show_int(5)
 
-bar.load_obj(a)
-
-bar.show_obj(a)
+moo = foo.FooObj()
+moo.a = 1
+moo.b = 2
+bar.show_obj(moo)
