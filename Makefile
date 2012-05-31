@@ -1,6 +1,6 @@
 PYTHON_PKG?=python-2.7
-PYTHON_CFLAGS=$(shell pkg-config --cflags ${PYTHON_PKG})
-PYTHON_LIBS=$(shell pkg-config --libs ${PYTHON_PKG})
+PYTHON_CFLAGS?=$(shell pkg-config --cflags ${PYTHON_PKG})
+PYTHON_LIBS?=$(shell pkg-config --libs ${PYTHON_PKG})
 CFLAGS=-fPIC ${PYTHON_CFLAGS}
 LDFLAGS=-shared -pthread -fPIC -fwrapv -O2 -Wall -fno-strict-aliasing -I/usr/include/python2.7 -L. 
 
@@ -25,3 +25,6 @@ foo.c: foo.pyx
 clean:
 	rm -f foo.o foo.c foo.so libfoo_api.so foo_api.o
 
+.PHONY: test
+test: all
+	LD_LIBRARY_PATH=. python test.py
