@@ -1,5 +1,8 @@
-CFLAGS=-I/usr/include/python2.7 -fPIC
-LDFLAGS=-shared -pthread -fPIC -fwrapv -O2 -Wall -fno-strict-aliasing -I/usr/include/python2.7 -L.
+PYTHON_PKG?=python-2.7
+PYTHON_CFLAGS=$(shell pkg-config --cflags ${PYTHON_PKG})
+PYTHON_LIBS=$(shell pkg-config --libs ${PYTHON_PKG})
+CFLAGS=-fPIC ${PYTHON_CFLAGS}
+LDFLAGS=-shared -pthread -fPIC -fwrapv -O2 -Wall -fno-strict-aliasing -I/usr/include/python2.7 -L. 
 
 all: foo.so
 
@@ -10,7 +13,7 @@ foo.o: foo.c
 	gcc $(CFLAGS) -c foo.c
 
 libfoo_api.so: foo_api.o
-	gcc $(LDFLAGS) -o libfoo_api.so foo_api.o
+	gcc $(LDFLAGS) -o libfoo_api.so foo_api.o ${PYTHON_LIBS}
 
 foo_api.o: foo_api.c
 	gcc $(CFLAGS) -c foo_api.c
